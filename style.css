@@ -1,0 +1,87 @@
+body {
+    display: grid;
+    place-items: center;
+    height: 98vh;
+    --gamebox-height: 600px;
+}
+
+.game-board {
+    height: var(--gamebox-height);
+    width: var(--gamebox-height);
+    padding: 25px;
+
+}
+
+table {
+    height: var(--gamebox-height);
+    width: var(--gamebox-height);
+    background-color: white;
+}
+
+
+td:nth-child(n + 1) {
+    border-right: 20px solid black;
+    border-bottom: 20px solid black;
+}
+td:last-child {
+    border-right: none;
+    padding-left: 20px;
+}
+
+tr:last-child > td {
+    border-bottom: none;
+    padding-top: 20px;
+}
+
+td {
+    height: calc(var(--gamebox-height) / 9);
+    width: calc(var(--gamebox-height) / 9);
+    font-size: 85px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.welcome > h1, .welcome > h2 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.start-game, .btn-1, .btn-2 {
+    height: 50px;
+    width: 200px;
+    font-size: inherit;
+    border-radius: 50px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: bolder;
+
+}
+
+.btn-1, .btn-2 {
+    height: 50px;
+    width: 150px;
+}
+
+.btn-selected {
+    border-radius: 0px;
+    background-color: rgba(0, 0, 0, 0.11);
+    color: black;
+}
+.dont-show {
+    display: none;
+}
+
+.enter-name {
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid black;
+    padding-left: 5px;
+}
