@@ -1,6 +1,7 @@
 let gameBoard = (function(){
     'use strict';
-    var gameBoardArr = ["","","","","","","","",""]
+    var gameBoardArr = ["","","","","","","","",""];
+
 
     var gameBoardDisplay = () => {
 
@@ -32,6 +33,34 @@ let displayController = (function () {
     let _selectionBtn1 = document.querySelector(".btn-1");
     let _selectionBtn2 = document.querySelector(".btn-2");
 
+
+    var _checkWinner = (whatMark) => {
+        let arr = gameBoard.gameBoardArr;
+        //console.log(arr);
+        let winningConfigs = [
+            [2, 5, 8],
+            [0, 4, 8],
+            [0, 1, 2],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 4, 6],
+            [3, 4, 5],
+            [6, 7, 8]
+        ]
+
+        for (i = 0; i < winningConfigs.length; i ++) {
+            //console.log(winningConfigs[i][0])
+
+            //console.log(arr[winningConfigs[i][0]]);
+            //console.log(whatMark);
+            //console.log(arr[winningConfigs[i][0]] == whatMark);
+            if (arr[winningConfigs[i][0]] == whatMark && arr[winningConfigs[i][1]] == whatMark && arr[winningConfigs[i][2]] == whatMark) {
+
+                return "win"
+            } ;
+        };
+    };
+
     function _nextStep() {
         _gameDiv.classList.remove("dont-show");
         _welcomePanel.classList.add("dont-show");
@@ -57,10 +86,16 @@ let displayController = (function () {
                 
                 
                 gameBoard.gameBoardDisplay();
+                console.log(chanceFlag);
+                let winStatus = _checkWinner(chanceFlag?"O":"X");
 
-            })
-        })
-    }
+                if (winStatus == "win") {
+                    alert("player won");
+                };
+
+            });
+        });
+    };
 
     function startGame() {
         _selectionBtn1.addEventListener("click", ()=>{
