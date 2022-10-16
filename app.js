@@ -135,10 +135,12 @@ let displayController = (function () {
 
                 if (chanceFlag && gameBoard.gameBoardArr[cell.id] == "") {
                     gameBoard.gameBoardArr[cell.id] = "X";
+                    _count = _count + 1
                     //console.log(gameBoard.gameBoardArr);
                     chanceFlag = false;
                 } else if (!chanceFlag && gameBoard.gameBoardArr[cell.id] == ""){
                     gameBoard.gameBoardArr[cell.id] = "O";
+                    _count = _count + 1
                     chanceFlag = true;
                 }
                 
@@ -158,7 +160,7 @@ let displayController = (function () {
                     };
                 }, 50);
 
-                _count = _count + 1
+                
                 //console.log(_count);
                 if (_count == 9) {
                     console.log("first here");
