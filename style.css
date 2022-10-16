@@ -39,7 +39,7 @@ td {
     height: calc(var(--gamebox-height) / 9);
 
 
-    font-size: 65px;
+    font-size: calc(calc(var(--gamebox-height) / 8));
     table-layout: fixed;
     text-align: center;
     cursor: pointer;
@@ -107,8 +107,20 @@ td {
     align-items: center;
     gap: 5px;
     border-radius: 50px;
+    font-size: 1vh; 
+    padding: 5%;
 }
-
 .dont-show {
     display: none;
+}
+
+.choices {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1vw;
+}
+
+:root {
+    font-size: 1vmax;
 }
