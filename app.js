@@ -10,8 +10,15 @@ let gameBoard = (function(){
         gameboxes.forEach(Element=> {
             let index = Element.id;
 
-            //console.log(Element.textContent);
-            Element.textContent = gameBoardArr[index];
+            //console.log(gameBoard.gameBoardArr);
+            if (gameBoard.gameBoardArr[index] == "X"){
+                Element.textContent = "⨉"
+            } else if (gameBoard.gameBoardArr[index] == "O") {
+                Element.textContent = "◯"
+            } else {
+                Element.textContent = gameBoard.gameBoardArr[index];
+            }
+            
         })
 
     }
@@ -26,6 +33,9 @@ let gamePlayer = (playerSymbol) => {
 }
 
 let displayController = (function () {
+
+    let _count = 0;
+    
     let _gameDiv = document.querySelector(".game-board");
 
     let _welcomePanel = document.querySelector(".welcome");
@@ -33,9 +43,43 @@ let displayController = (function () {
     let _selectionBtn1 = document.querySelector(".btn-1");
     let _selectionBtn2 = document.querySelector(".btn-2");
 
+    var _resetBoard = () => {
+        gameBoard.gameBoardArr = ["","","","","","","","",""];
+        gameBoard.gameBoardDisplay()
+    }
+
+    var _congratulateWinner = (winnerName) => {
+        
+        playNextRoundBtn = document.createElement("button");
+        playNextRoundBtn.classList.add("play-next-round")
+        playNextRoundBtn.textContent = "Play Next Round"
+
+        //console.log("winnerbox");
+        winnerBox = document.querySelector(".congratulations");
+        winnerBox.textContent = "";
+
+        fullscreenbox = document.querySelector(".full-screenbox");
+        fullscreenbox.classList.remove("dont-show");
+        congratulationMsg = document.createElement("h1");
+        congratulationMsg.textContent = `congratulations ${winnerName}!`
+    
+        //console.log(referenceNode);
+        winnerBox.appendChild(congratulationMsg);
+        winnerBox.appendChild(playNextRoundBtn);
+
+        setTimeout(function(){
+            playNextRoundBtn.addEventListener("click", () => {
+                setTimeout(5000);
+                fullscreenbox.classList.add("dont-show");
+            });
+        }, 50);
+        
+        
+
+    };
 
     var _checkWinner = (whatMark) => {
-        let arr = gameBoard.gameBoardArr;
+    
         //console.log(arr);
         let winningConfigs = [
             [2, 5, 8],
@@ -54,13 +98,20 @@ let displayController = (function () {
             //console.log(arr[winningConfigs[i][0]]);
             //console.log(whatMark);
             //console.log(arr[winningConfigs[i][0]] == whatMark);
-            if (arr[winningConfigs[i][0]] == whatMark && arr[winningConfigs[i][1]] == whatMark && arr[winningConfigs[i][2]] == whatMark) {
+            if (gameBoard.gameBoardArr[winningConfigs[i][0]] == whatMark && gameBoard.gameBoardArr[winningConfigs[i][1]] == whatMark && gameBoard.gameBoardArr[winningConfigs[i][2]] == whatMark) {
 
                 return "win"
             } ;
-        };
-    };
 
+            
+        };
+        if (_count == 8) {
+            console.log("draw");
+            return "draw"
+        }
+        _count += 1;
+
+    };
     function _nextStep() {
         _gameDiv.classList.remove("dont-show");
         _welcomePanel.classList.add("dont-show");
@@ -78,20 +129,28 @@ let displayController = (function () {
             cell.addEventListener("click", ()=>{
                 if (chanceFlag && gameBoard.gameBoardArr[cell.id] == "") {
                     gameBoard.gameBoardArr[cell.id] = "X";
+                    //console.log(gameBoard.gameBoardArr);
                     chanceFlag = false;
                 } else if (!chanceFlag && gameBoard.gameBoardArr[cell.id] == ""){
                     gameBoard.gameBoardArr[cell.id] = "O";
                     chanceFlag = true;
                 }
                 
-                
                 gameBoard.gameBoardDisplay();
-                console.log(chanceFlag);
-                let winStatus = _checkWinner(chanceFlag?"O":"X");
+                //console.log(chanceFlag);
+                setTimeout(function(){
+                    let winStatus = _checkWinner(chanceFlag?"O":"X");
 
-                if (winStatus == "win") {
-                    alert("player won");
-                };
+                    if (winStatus == "win" && chanceFlag == false) {
+                        _congratulateWinner("Player 1");
+
+                        _resetBoard();
+                    } else if (winStatus == "win" && chanceFlag == true) {
+                        _congratulateWinner("Player 2");
+                        _resetBoard();
+                    };
+                }, 1000);
+                
 
             });
         });
@@ -99,12 +158,14 @@ let displayController = (function () {
 
     function startGame() {
         _selectionBtn1.addEventListener("click", ()=>{
-            let gameMode = "HVH";
-            _nextStep();
-            HumanVHuman();
-            //console.log(gameMode);
-
+            setTimeout(function(){
+                let gameMode = "HVH";
+                _nextStep();
+                HumanVHuman();
+                //console.log(gameMode);
+                }, 50);   
         });
+        
         _selectionBtn2.addEventListener("click", ()=>{
             let gameMode = "HVA";
             _nextStep();
@@ -113,11 +174,10 @@ let displayController = (function () {
         });
     };
     
-    return {startGame, HumanVHuman};
+    return {startGame, HumanVHuman, _count};
 
 })();
 
-let newGameBoard = gameBoard;
 
 gameBoard.gameBoardDisplay();
 

@@ -2,7 +2,7 @@ body {
     display: grid;
     place-items: center;
     height: 98vh;
-    --gamebox-height: 600px;
+    --gamebox-height: 40vw;
 }
 
 .game-board {
@@ -16,27 +16,31 @@ table {
     height: var(--gamebox-height);
     width: var(--gamebox-height);
     background-color: white;
+    table-layout: fixed;
 }
 
 
 td:nth-child(n + 1) {
-    border-right: 20px solid black;
-    border-bottom: 20px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    box-shadow: none;
 }
 td:last-child {
     border-right: none;
-    padding-left: 20px;
+
 }
 
 tr:last-child > td {
     border-bottom: none;
-    padding-top: 20px;
+
 }
 
 td {
     height: calc(var(--gamebox-height) / 9);
-    width: calc(var(--gamebox-height) / 9);
-    font-size: 85px;
+
+
+    font-size: 65px;
+    table-layout: fixed;
     text-align: center;
     cursor: pointer;
 }
@@ -53,7 +57,7 @@ td {
     padding: 0px;
 }
 
-.start-game, .btn-1, .btn-2 {
+.start-game, .btn-1, .btn-2, .play-next-round {
     height: 50px;
     width: 200px;
     font-size: inherit;
@@ -65,18 +69,15 @@ td {
 
 }
 
-.btn-1, .btn-2 {
+.btn-1, .btn-2, .play-next-round {
     height: 50px;
     width: 150px;
 }
 
-.btn-selected {
+.btn-selected  {
     border-radius: 0px;
     background-color: rgba(0, 0, 0, 0.11);
     color: black;
-}
-.dont-show {
-    display: none;
 }
 
 .enter-name {
@@ -84,4 +85,30 @@ td {
     border-radius: 20px;
     border: 1px solid black;
     padding-left: 5px;
+}
+
+.full-screenbox {
+    position: absolute;
+    height: 98vh;
+    width: 98vw;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.151);
+    display: grid;
+    place-items: center;
+}
+
+.congratulations {
+    height: 500px;
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 50px;
+}
+
+.dont-show {
+    display: none;
 }
