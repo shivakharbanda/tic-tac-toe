@@ -45,10 +45,13 @@ let displayController = (function () {
 
     var _resetBoard = () => {
         gameBoard.gameBoardArr = ["","","","","","","","",""];
-        gameBoard.gameBoardDisplay()
+        gameBoard.gameBoardDisplay();
+        _count = 0;
     }
 
     var _congratulateWinner = (winnerName) => {
+
+
         
         playNextRoundBtn = document.createElement("button");
         playNextRoundBtn.classList.add("play-next-round")
@@ -61,7 +64,13 @@ let displayController = (function () {
         fullscreenbox = document.querySelector(".full-screenbox");
         fullscreenbox.classList.remove("dont-show");
         congratulationMsg = document.createElement("h1");
-        congratulationMsg.textContent = `congratulations ${winnerName}!`
+
+        if (winnerName == "DRAW") {
+            congratulationMsg.textContent = `Game Drawn`;
+        } else {
+            congratulationMsg.textContent = `congratulations ${winnerName}!`
+        };
+       
     
         //console.log(referenceNode);
         winnerBox.appendChild(congratulationMsg);
@@ -105,11 +114,7 @@ let displayController = (function () {
 
             
         };
-        if (_count == 8) {
-            console.log("draw");
-            return "draw"
-        }
-        _count += 1;
+        
 
     };
     function _nextStep() {
@@ -127,6 +132,7 @@ let displayController = (function () {
         
         cells.forEach(cell =>{
             cell.addEventListener("click", ()=>{
+
                 if (chanceFlag && gameBoard.gameBoardArr[cell.id] == "") {
                     gameBoard.gameBoardArr[cell.id] = "X";
                     //console.log(gameBoard.gameBoardArr);
@@ -138,6 +144,7 @@ let displayController = (function () {
                 
                 gameBoard.gameBoardDisplay();
                 //console.log(chanceFlag);
+                //console.log(gameBoard.gameBoardArr)
                 setTimeout(function(){
                     let winStatus = _checkWinner(chanceFlag?"O":"X");
 
@@ -150,6 +157,14 @@ let displayController = (function () {
                         _resetBoard();
                     };
                 }, 1000);
+
+                _count = _count + 1
+                //console.log(_count);
+                if (_count == 9) {
+                    console.log("first here");
+                    _congratulateWinner("DRAW");
+                    _resetBoard();
+                };
                 
 
             });
