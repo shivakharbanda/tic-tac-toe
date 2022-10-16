@@ -2,7 +2,7 @@ body {
     display: grid;
     place-items: center;
     height: 98vh;
-    --gamebox-height: 50vmax;
+    --gamebox-height: 40vmax;
 }
 
 .game-board {
@@ -123,4 +123,9 @@ td {
 
 :root {
     font-size: 1vmax;
+    user-select: none;
+}
+
+button {
+    cursor: pointer;
 }
