@@ -2,7 +2,7 @@ body {
     display: grid;
     place-items: center;
     height: 98vh;
-    --gamebox-height: 40vw;
+    --gamebox-height: 40vmax;
 }
 
 .game-board {
@@ -98,8 +98,8 @@ td {
 }
 
 .congratulations {
-    height: 500px;
-    width: 50%;
+    height: 30vh;
+    width: 50vw;
     background-color: white;
     display: flex;
     flex-direction: column;
