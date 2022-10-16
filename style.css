@@ -9,6 +9,8 @@ body {
     height: var(--gamebox-height);
     width: var(--gamebox-height);
     padding: 25px;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
 
 }
 
@@ -43,6 +45,7 @@ td {
     table-layout: fixed;
     text-align: center;
     cursor: pointer;
+    padding: 5px;
 }
 
 .welcome {
@@ -128,4 +131,11 @@ td {
 
 button {
     cursor: pointer;
+}
+
+.score-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -15vh;
 }
