@@ -156,7 +156,7 @@ let displayController = (function () {
                         _congratulateWinner("Player 2");
                         _resetBoard();
                     };
-                }, 1000);
+                }, 50);
 
                 _count = _count + 1
                 //console.log(_count);
