@@ -5,8 +5,8 @@ let gameBoard = (function(){
 
     var gameBoardDisplay = () => {
 
-        let gameboxes = [...document.querySelectorAll("td")];
-
+        let gameboxes = [...document.querySelectorAll(".td")];
+        //console.log(gameboxes)
         gameboxes.forEach(Element=> {
             let index = Element.id;
 
@@ -128,7 +128,7 @@ let displayController = (function () {
 
         chanceFlag = true;
 
-        cells = [...document.querySelectorAll("td")];
+        cells = [...document.querySelectorAll(".td")];
         
         cells.forEach(cell =>{
             cell.addEventListener("click", ()=>{

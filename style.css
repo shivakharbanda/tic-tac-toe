@@ -15,40 +15,23 @@ body {
 
 }
 
-table {
-    height: var(--gamebox-height);
-    width: var(--gamebox-height);
+
+.table {
+	height: var(--gamebox-height);
+	width: var(--gamebox-height);
+	background-color: white;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+    background-color: black;
+    gap: 10px;
+}
+.td {
     background-color: white;
-    table-layout: fixed;
+    font-size: calc(var(--gamebox-height) / 5);
+    display: grid;
+    place-items: center;
 }
-
-
-td:nth-child(n + 1) {
-    border-right: 10px solid black;
-    border-bottom: 10px solid black;
-    box-shadow: none;
-}
-td:last-child {
-    border-right: none;
-
-}
-
-tr:last-child > td {
-    border-bottom: none;
-
-}
-
-td {
-    height: calc(var(--gamebox-height) / 9);
-
-
-    font-size: calc(calc(var(--gamebox-height) / 8));
-    table-layout: fixed;
-    text-align: center;
-    cursor: pointer;
-    padding: 5px;
-}
-
 .welcome {
     display: flex;
     flex-direction: column;
