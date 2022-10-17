@@ -57,7 +57,7 @@ body {
 
 }
 .btn-1, .btn-2, .play-next-round {
-	height: 5vmax;
+	height: min(7vmax, 7vh);
 	width: max(17vw, 17vh);
 	font-size: large;
 }
@@ -101,9 +101,6 @@ body {
 	font-size: 1vmax;
 	text-align: center;
 }
-.dont-show {
-    display: none;
-}
 
 .choices {
 	display: flex;
@@ -112,10 +109,6 @@ body {
 	gap: 1vw;
 }
 
-:root {
-    font-size: 2vmax;
-    user-select: none;
-}
 
 button {
     cursor: pointer;
@@ -125,8 +118,82 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1vmax;
+    font-size: 2vmax;
     padding-bottom: 5vh;
     margin-top: -4vh;
 
+}
+
+input.name {
+	height: min(40px, 7vh);
+	width: max(300px, 20vw);
+	border: 1px solid;
+	border-radius: 5px;
+}
+
+.skip-btn, .play-game-btn {
+    height: min(50px, 5vh);
+    width: max(100px, 10vw);
+}
+.choice-btn {
+    width: 35vmax;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.name-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: min(25px, 5vh);
+}
+
+
+.dont-show {
+    display: none;
+}
+
+
+:root {
+    font-size: 2vmax;
+    user-select: none;
+}
+
+.stat-blocks {
+    display: flex;
+    gap: min(5px, 1vw);
+    justify-content: center;
+    align-items: center;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+h5 {
+    margin: 0px;
+}
+.player-1 > h2, .player-2 > h2 {
+    margin: 0px;
+}
+
+.score-card {
+	font-size: max(20px, 1vmax);
+    margin-top: 0.5vh;
+}
+
+input:valid {
+    border: 1px solid green;
+}
+input:invalid {
+    border: 1px solid red;
 }
