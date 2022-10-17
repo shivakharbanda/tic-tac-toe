@@ -34,6 +34,9 @@ let gamePlayer = (playerSymbol) => {
 
 let displayController = (function () {
 
+
+    gameBoard.gameBoardDisplay();
+
     let _count = 0;
     
     let _gameDiv = document.querySelector(".game-board");
@@ -122,7 +125,7 @@ let displayController = (function () {
         _welcomePanel.classList.add("dont-show");
     }
 
-    function HumanVHuman() {
+    function _HumanVHuman() {
         player1 = gamePlayer("X");
         player2 = gamePlayer("O");
 
@@ -179,7 +182,7 @@ let displayController = (function () {
             setTimeout(function(){
                 let gameMode = "HVH";
                 _nextStep();
-                HumanVHuman();
+                _HumanVHuman();
                 //console.log(gameMode);
                 }, 50);   
         });
@@ -192,11 +195,10 @@ let displayController = (function () {
         });
     };
     
-    return {startGame, HumanVHuman, _count};
+    return {startGame};
 
 })();
 
 
-gameBoard.gameBoardDisplay();
 
 displayController.startGame();
