@@ -5,8 +5,8 @@ let gameBoard = (function(){
 
     var gameBoardDisplay = () => {
 
-        let gameboxes = [...document.querySelectorAll("td")];
-
+        let gameboxes = [...document.querySelectorAll(".td")];
+        //console.log(gameboxes)
         gameboxes.forEach(Element=> {
             let index = Element.id;
 
@@ -128,17 +128,19 @@ let displayController = (function () {
 
         chanceFlag = true;
 
-        cells = [...document.querySelectorAll("td")];
+        cells = [...document.querySelectorAll(".td")];
         
         cells.forEach(cell =>{
             cell.addEventListener("click", ()=>{
 
                 if (chanceFlag && gameBoard.gameBoardArr[cell.id] == "") {
                     gameBoard.gameBoardArr[cell.id] = "X";
+                    _count = _count + 1
                     //console.log(gameBoard.gameBoardArr);
                     chanceFlag = false;
                 } else if (!chanceFlag && gameBoard.gameBoardArr[cell.id] == ""){
                     gameBoard.gameBoardArr[cell.id] = "O";
+                    _count = _count + 1
                     chanceFlag = true;
                 }
                 
@@ -155,16 +157,17 @@ let displayController = (function () {
                     } else if (winStatus == "win" && chanceFlag == true) {
                         _congratulateWinner("Player 2");
                         _resetBoard();
+                        
+                    } else if (_count == 9) {
+                        console.log("first here");
+                        _congratulateWinner("DRAW");
+                        _resetBoard();
                     };
                 }, 50);
 
-                _count = _count + 1
+                
                 //console.log(_count);
-                if (_count == 9) {
-                    console.log("first here");
-                    _congratulateWinner("DRAW");
-                    _resetBoard();
-                };
+                
                 
 
             });
@@ -183,7 +186,7 @@ let displayController = (function () {
         
         _selectionBtn2.addEventListener("click", ()=>{
             let gameMode = "HVA";
-            _nextStep();
+
             //console.log(gameMode);
 
         });
