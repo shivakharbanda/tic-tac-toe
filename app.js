@@ -157,16 +157,17 @@ let displayController = (function () {
                     } else if (winStatus == "win" && chanceFlag == true) {
                         _congratulateWinner("Player 2");
                         _resetBoard();
+                        
+                    } else if (_count == 9) {
+                        console.log("first here");
+                        _congratulateWinner("DRAW");
+                        _resetBoard();
                     };
                 }, 50);
 
                 
                 //console.log(_count);
-                if (_count == 9) {
-                    console.log("first here");
-                    _congratulateWinner("DRAW");
-                    _resetBoard();
-                };
+                
                 
 
             });
@@ -185,7 +186,7 @@ let displayController = (function () {
         
         _selectionBtn2.addEventListener("click", ()=>{
             let gameMode = "HVA";
-            _nextStep();
+
             //console.log(gameMode);
 
         });

@@ -35,6 +35,7 @@ body {
 .welcome {
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
     gap: 20px;
 }
@@ -55,12 +56,11 @@ body {
     font-weight: bolder;
 
 }
-
 .btn-1, .btn-2, .play-next-round {
-    height: 10vh;
-    width: 17vw;
+	height: 5vmax;
+	width: max(17vw, 17vh);
+	font-size: large;
 }
-
 .btn-selected  {
     border-radius: 0px;
     background-color: rgba(0, 0, 0, 0.11);
@@ -96,6 +96,10 @@ body {
     border-radius: 50px;
     font-size: 1vh; 
     padding: 5%;
+}
+.congratulations {
+	font-size: 1vmax;
+	text-align: center;
 }
 .dont-show {
     display: none;
