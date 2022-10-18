@@ -197,3 +197,8 @@ input:valid {
 input:invalid {
     border: 1px solid red;
 }
+
+.chance {
+    color: rgb(30, 129, 0);
+}
+

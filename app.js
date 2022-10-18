@@ -56,6 +56,8 @@ let displayController = (function () {
     let _player1 = "";
     let _player2 = "";
 
+    let chanceFlag = true;
+
     var _resetBoard = () => {
         gameBoard.gameBoardArr = ["","","","","","","","",""];
         gameBoard.gameBoardDisplay();
@@ -220,7 +222,19 @@ let displayController = (function () {
         _player2Wins.textContent = _player2.wins;
         _player2losses.textContent = _player2.losses;
         _player2Draws.textContent = _player2.draws;
+
+        let _player1ColorDiv = document.querySelector(".player-1");
+        let _player2ColorDiv = document.querySelector(".player-2");
+
+        if (chanceFlag) {
+            _player1ColorDiv.classList.add("chance");
+            _player2ColorDiv.classList.remove("chance");
+        } else {
+            _player2ColorDiv.classList.add("chance");
+            _player1ColorDiv.classList.remove("chance");
+        }
     }
+
 
     function _HumanVHuman() {
         _renderNameAndStats();
@@ -231,7 +245,7 @@ let displayController = (function () {
         
         cells.forEach(cell =>{
             cell.addEventListener("click", ()=>{
-
+                
                 if (chanceFlag && gameBoard.gameBoardArr[cell.id] == "") {
                     gameBoard.gameBoardArr[cell.id] = "X";
                     _count = _count + 1
@@ -277,6 +291,7 @@ let displayController = (function () {
 
                         
                     };
+                    _renderNameAndStats();
                 }, 50);
 
                 
