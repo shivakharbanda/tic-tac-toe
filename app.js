@@ -26,13 +26,21 @@ let gameBoard = (function(){
     return {gameBoardDisplay, gameBoardArr};
 })();
 
-let gamePlayer = (playerSymbol) => {
-    let player = playerSymbol;
+let gamePlayer = (name, symbol) => {
+    let wins = 0;
+    let losses = 0;
+    let draws = 0;
 
-    return {player}
+    function getPlayerName() {
+        console.log(this);
+    }
+    return {name, symbol, wins, losses, draws, getPlayerName};
 }
 
 let displayController = (function () {
+
+
+    gameBoard.gameBoardDisplay();
 
     let _count = 0;
     
@@ -43,9 +51,17 @@ let displayController = (function () {
     let _selectionBtn1 = document.querySelector(".btn-1");
     let _selectionBtn2 = document.querySelector(".btn-2");
 
+    let _playerNameBox = document.querySelector(".name-form");
+
+    let _player1 = "";
+    let _player2 = "";
+
+    let chanceFlag = true;
+
     var _resetBoard = () => {
         gameBoard.gameBoardArr = ["","","","","","","","",""];
         gameBoard.gameBoardDisplay();
+        _renderNameAndStats();
         _count = 0;
     }
 
@@ -118,13 +134,110 @@ let displayController = (function () {
 
     };
     function _nextStep() {
-        _gameDiv.classList.remove("dont-show");
+        //_gameDiv.classList.remove("dont-show");
+        
         _welcomePanel.classList.add("dont-show");
+        _playerNameBox.classList.remove("dont-show");
+        _getPlayerNames();
+       
     }
 
-    function HumanVHuman() {
-        player1 = gamePlayer("X");
-        player2 = gamePlayer("O");
+    function _getPlayerNames() {
+        
+        let _player1Input = document.getElementById("player-1");
+        let _player2Input = document.getElementById("player-2");
+
+        _player1Input.value = ""
+        _player2Input.value = ""
+
+        let _playBtn = document.querySelector(".play-game-btn");
+        let _skipBtn = document.querySelector(".skip-btn");
+
+        _skipBtn.addEventListener("click", () => {
+            _player1 = gamePlayer("Player 1", "X");
+            _player2 = gamePlayer("Player 2", "O");
+
+            _gameDiv.classList.remove("dont-show");
+            _playerNameBox.classList.add("dont-show");
+            
+            _player1Input.value = "";
+            _player2Input.value = "";
+
+            _renderNameAndStats();
+        })
+
+
+        _playBtn.addEventListener("click", ()=>{
+            let _player1Name = _player1Input.value;
+            let _player2Name = _player2Input.value;
+
+            
+            if (_player1Name == "" || _player2Name == "") {
+                alert("fields Cant be empty");
+            } else {
+                _player1 = gamePlayer(_player1Name, "X");
+                _player2 = gamePlayer(_player2Name, "O");
+    
+                _gameDiv.classList.remove("dont-show");
+                _playerNameBox.classList.add("dont-show");
+            }
+
+            _player1Input.value = ""
+            _player2Input.value = ""
+            _renderNameAndStats();
+        })
+        
+
+    };
+
+    function _updateGameStats(player, win, loss, draw) {
+        player.wins += win;
+        player.losses += loss;
+        player.draws += draw
+
+        _renderNameAndStats();
+    }
+
+    function _renderNameAndStats() {
+
+        let _player1NameBox = document.getElementById("player-1-name");
+        let _player2NameBox = document.getElementById("player-2-name");
+
+
+        _player1NameBox.textContent = _player1.name;
+        _player2NameBox.textContent = _player2.name;
+
+        let _player1Wins = document.querySelector(".player-1-win");
+        let _player1losses = document.querySelector(".player-1-losses");
+        let _player1Draws = document.querySelector(".player-1-draws");
+
+        _player1Wins.textContent = _player1.wins;
+        _player1losses.textContent = _player1.losses;
+        _player1Draws.textContent = _player1.draws;
+
+        let _player2Wins = document.querySelector(".player-2-win");
+        let _player2losses = document.querySelector(".player-2-losses");
+        let _player2Draws = document.querySelector(".player-2-draws");
+
+        _player2Wins.textContent = _player2.wins;
+        _player2losses.textContent = _player2.losses;
+        _player2Draws.textContent = _player2.draws;
+
+        let _player1ColorDiv = document.querySelector(".player-1");
+        let _player2ColorDiv = document.querySelector(".player-2");
+
+        if (chanceFlag) {
+            _player1ColorDiv.classList.add("chance");
+            _player2ColorDiv.classList.remove("chance");
+        } else {
+            _player2ColorDiv.classList.add("chance");
+            _player1ColorDiv.classList.remove("chance");
+        }
+    }
+
+
+    function _HumanVHuman() {
+        _renderNameAndStats();
 
         chanceFlag = true;
 
@@ -132,7 +245,7 @@ let displayController = (function () {
         
         cells.forEach(cell =>{
             cell.addEventListener("click", ()=>{
-
+                
                 if (chanceFlag && gameBoard.gameBoardArr[cell.id] == "") {
                     gameBoard.gameBoardArr[cell.id] = "X";
                     _count = _count + 1
@@ -151,18 +264,34 @@ let displayController = (function () {
                     let winStatus = _checkWinner(chanceFlag?"O":"X");
 
                     if (winStatus == "win" && chanceFlag == false) {
-                        _congratulateWinner("Player 1");
+                        _congratulateWinner(_player1.name);
 
                         _resetBoard();
+                        
+                        _updateGameStats(_player1, 1, 0, 0);
+                        _updateGameStats(_player2, 0, 1, 0);
+
+                        
+
                     } else if (winStatus == "win" && chanceFlag == true) {
-                        _congratulateWinner("Player 2");
+                        _congratulateWinner(_player2.name);
+
                         _resetBoard();
+
+                        _updateGameStats(_player2, 1, 0, 0);
+                        _updateGameStats(_player1, 0, 1, 0);
                         
                     } else if (_count == 9) {
-                        console.log("first here");
                         _congratulateWinner("DRAW");
+
                         _resetBoard();
+
+                        _updateGameStats(_player1, 0, 0, 1);
+                        _updateGameStats(_player2, 0, 0, 1);
+
+                        
                     };
+                    _renderNameAndStats();
                 }, 50);
 
                 
@@ -179,7 +308,7 @@ let displayController = (function () {
             setTimeout(function(){
                 let gameMode = "HVH";
                 _nextStep();
-                HumanVHuman();
+                _HumanVHuman();
                 //console.log(gameMode);
                 }, 50);   
         });
@@ -192,11 +321,10 @@ let displayController = (function () {
         });
     };
     
-    return {startGame, HumanVHuman, _count};
+    return {startGame};
 
 })();
 
 
-gameBoard.gameBoardDisplay();
 
 displayController.startGame();
