@@ -141,14 +141,14 @@ input.name {
     justify-content: space-between;
     align-items: center;
 }
-.name-form {
+.name-form, .name-form-ai {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     width: fit-content;
 }
-.form {
+.form, .form-ai {
     display: flex;
     flex-direction: column;
     gap: 25px;
