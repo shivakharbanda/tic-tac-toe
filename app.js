@@ -70,8 +70,8 @@ let displayController = (function () {
 
         
         playNextRoundBtn = document.createElement("button");
-        playNextRoundBtn.classList.add("play-next-round")
-        playNextRoundBtn.textContent = "Play Next Round"
+        playNextRoundBtn.classList.add("play-next-round");
+        playNextRoundBtn.textContent = "Play Next Round";
 
         ////////console.log("winnerbox");
         winnerBox = document.querySelector(".congratulations");
@@ -85,6 +85,12 @@ let displayController = (function () {
             congratulationMsg.textContent = `Game Drawn`;
         } else {
             congratulationMsg.textContent = `congratulations ${winnerName}!`
+            if (winnerName == "AI") {
+                congratulationMsg.textContent = `You lose!`;
+                playNextRoundBtn.textContent = "Please Try Again";
+                
+            }
+           
         };
 
         winnerBox.appendChild(congratulationMsg);
@@ -498,12 +504,14 @@ let displayController = (function () {
                             gameBoard.gameBoardDisplay();
                         }
                     }, 50);
+                    
                 };
-               
-              
+                
+                gameBoard.gameBoardDisplay();
+                //console.log("count1", _count)
                 setTimeout(function(){
                     let winStatus = _checkWinner(chanceFlag?"O":"X");
-
+                    //console.log("count", _count)
                     if (winStatus == "win" && chanceFlag == false) {
                         _congratulateWinner(_player1.name);
 
@@ -522,7 +530,7 @@ let displayController = (function () {
                         _updateGameStats(_player2, 1, 0, 0);
                         _updateGameStats(_player1, 0, 1, 0);
                         
-                    } else if (_count == 9) {
+                    } else if (_count == 10) {
                         ////console.log(_count, "hereee")
                         _congratulateWinner("DRAW");
 
