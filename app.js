@@ -59,11 +59,30 @@ let displayController = (function () {
 
     let chanceFlag = true;
 
-    var _resetBoard = () => {
+    var _resetBoard = (optionalArg) => {
         gameBoard.gameBoardArr = ["","","","","","","","",""];
         gameBoard.gameBoardDisplay();
         _renderNameAndStats();
         _count = 0;
+        
+        if (optionalArg == "AI") {
+
+            setTimeout(function () {
+                if (!chanceFlag){
+            
+                    _cellNo = GetRandomMove(gameBoard.gameBoardArr);
+                
+                    
+                    gameBoard.gameBoardArr[_cellNo] = "O";
+                    _count = _count + 1
+                    chanceFlag = true;
+                    gameBoard.gameBoardDisplay();
+                    _renderNameAndStats();
+                }
+            }, 50);
+
+        }
+       
     }
 
     var _congratulateWinner = (winnerName) => {
@@ -506,35 +525,43 @@ let displayController = (function () {
                     }, 50);
                     
                 };
-                
+
                 gameBoard.gameBoardDisplay();
                 //console.log("count1", _count)
                 setTimeout(function(){
-                    let winStatus = _checkWinner(chanceFlag?"O":"X");
+                    let winStatus = _checkWinner("X");
+                    if (winStatus == "win") {
+                        chanceFlag = false;
+                    }else if (winStatus != "win") {
+                        winStatus = _checkWinner("O");
+                        chanceFlag = true;
+                    };
                     //console.log("count", _count)
                     if (winStatus == "win" && chanceFlag == false) {
                         _congratulateWinner(_player1.name);
 
-                        _resetBoard();
+                        _resetBoard("AI");
                         
                         _updateGameStats(_player1, 1, 0, 0);
                         _updateGameStats(_player2, 0, 1, 0);
+                        chanceFlag = false;
 
                         
 
                     } else if (winStatus == "win" && chanceFlag == true) {
                         _congratulateWinner(_player2.name);
                         ////console.log("coming here");
-                        _resetBoard();
+                        _resetBoard("AI");
 
                         _updateGameStats(_player2, 1, 0, 0);
                         _updateGameStats(_player1, 0, 1, 0);
+                        chanceFlag = true;
                         
                     } else if (_count == 10) {
                         ////console.log(_count, "hereee")
                         _congratulateWinner("DRAW");
 
-                        _resetBoard();
+                        _resetBoard("AI");
 
                         _updateGameStats(_player1, 0, 0, 1);
                         _updateGameStats(_player2, 0, 0, 1);
