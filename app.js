@@ -74,7 +74,9 @@ let displayController = (function () {
                 
                     
                     gameBoard.gameBoardArr[_cellNo] = "O";
-                    _count = _count + 1
+                    
+                    _count = _count + 2
+                    console.log("count", _count)
                     chanceFlag = true;
                     gameBoard.gameBoardDisplay();
                     _renderNameAndStats();
@@ -536,7 +538,7 @@ let displayController = (function () {
                         winStatus = _checkWinner("O");
                         chanceFlag = true;
                     };
-                    //console.log("count", _count)
+                   
                     if (winStatus == "win" && chanceFlag == false) {
                         _congratulateWinner(_player1.name);
 
@@ -556,7 +558,6 @@ let displayController = (function () {
                         _updateGameStats(_player2, 1, 0, 0);
                         _updateGameStats(_player1, 0, 1, 0);
                         chanceFlag = true;
-                        
                     } else if (_count == 10) {
                         ////console.log(_count, "hereee")
                         _congratulateWinner("DRAW");
